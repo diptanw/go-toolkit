@@ -1,0 +1,28 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/debug*": true
+    },
+
+    // Go settings
+    "go.lintTool": "golangci-lint",
+    "go.lintFlags": [
+        "--enable-all",
+        "--fast",
+        "--new"
+    ],
+
+    "go.useLanguageServer": true,
+    "[go]": {
+    "editor.formatOnSave": true,
+        "editor.snippetSuggestions": "none",
+    },
+    "gopls": {
+        "usePlaceholders": false,
+        "completeUnimported": true,
+        "staticcheck": true,
+        "analyses": {
+            "ST1000": false,
+        }
+    },
+}
