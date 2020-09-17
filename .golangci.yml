@@ -1,0 +1,88 @@
+run:
+  timeout: 1m30s
+  tests: true
+
+linters:
+  enable:
+    - bodyclose
+    - deadcode
+    - depguard
+    - dogsled
+    - dupl
+    - errcheck
+    # - exhaustive
+    - funlen
+    - gochecknoinits
+    - gocognit
+    - goconst
+    - gocritic
+    - gocyclo
+    - godot
+    - gofmt
+    - goimports
+    - golint
+    - gomnd
+    - goprintffuncname
+    - gosec
+    - gosimple
+    - govet
+    - ineffassign
+    - interfacer
+    # - lll
+    - maligned
+    - misspell
+    - nakedret
+    - nestif
+    - noctx
+    - nolintlint
+    - prealloc
+    - rowserrcheck
+    - scopelint
+    - staticcheck
+    - structcheck
+    - stylecheck
+    - typecheck
+    - unconvert
+    - unparam
+    - unused
+    - varcheck
+    - whitespace
+    - wsl
+    # - asciicheck
+    # - gochecknoglobals
+    # - godox
+    # - goerr113
+    # - testpackage
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - funlen
+        - errcheck
+        - dupl
+        - scopelint
+        - goconst
+        - unparam
+        - testpackage
+        - bodyclose
+        - noctx
+
+linters-settings:
+  funlen:
+    lines: 100 #60
+    statements: 55 #40
+  wsl:
+    allow-cuddle-declaration: true
+  goimports:
+    local-prefixes: accedo.io/universal-search-roku
+  gocritic:
+    enabled-tags:
+      - diagnostic
+      - style
+      - experimental
+      - opinionated
+      - performance
+
+service:
+  golangci-lint-version: 1.31.x # use the fixed version to not introduce new linters unexpectedly
