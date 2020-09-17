@@ -1,10 +1,10 @@
 /*
 Package message provides types for asynchronous event consumption
-based on go channels. Topic receiver is plugable and it abstracts the
-technology and concrete implementation.
+based on Go channels. Topic receiver is pluggable and it abstracts the
+technical integrity part.
 
-SQS topic receiver currently support receiving SQS messages using
-the long polling requests to the message queue.
+SQS topic receiver currently support receiving SQS messages performing
+a long polling request to the message queue.
 
 Basic Usage
 

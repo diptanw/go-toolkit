@@ -42,17 +42,17 @@ func WithPolicy(client *http.Client, policy Policy) *http.Client {
 // errors and certain server responses.
 func HTTPCheck(err error, res interface{}) (bool, error) {
 	if err != nil {
-		// Untyped error returned by net/http when the number of redirects is exhausted
+		// Untyped error returned by net/http when the number of redirects is exhausted.
 		if ok, _ := regexp.MatchString(`stopped after \d+ redirects\z`, err.Error()); ok {
 			return false, nil
 		}
 
-		// Untyped error returned by net/http when the scheme specified in the URL is invalid
+		// Untyped error returned by net/http when the scheme specified in the URL is invalid.
 		if ok, _ := regexp.MatchString(`unsupported protocol scheme`, err.Error()); ok {
 			return false, nil
 		}
 
-		// Error was due to TLS cert verification failure
+		// Error was due to TLS cert verification failure.
 		if errors.Is(err, x509.UnknownAuthorityError{}) {
 			return false, nil
 		}
@@ -64,10 +64,10 @@ func HTTPCheck(err error, res interface{}) (bool, error) {
 		return true, nil
 	}
 
-	// Verify the server response
+	// Verify the server response.
 	if resp, ok := res.(*http.Response); ok {
 		if resp.StatusCode >= 500 && resp.StatusCode != 501 {
-			// Maybe a temporary outage
+			// Maybe a temporary outage.
 			return true, nil
 		}
 
@@ -77,23 +77,19 @@ func HTTPCheck(err error, res interface{}) (bool, error) {
 		}
 	}
 
-	// No need for another attempt
+	// No need for another attempt.
 	return false, nil
 }
 
-// transport is a wrapper for HTTP RoundTripper transport layer
-// that is responsible for retrials.
+// transport is a wrapper for HTTP RoundTripper that is responsible for retrying.
 type transport struct {
 	RoundTripper http.RoundTripper
 	Policy       Policy
 }
 
 // RoundTrip wraps calling an HTTP Transport with retries.
-func (t transport) RoundTrip(req *http.Request) (*http.Response, error) {
+func (t transport) RoundTrip(req *http.Request) (resp *http.Response, reqErr error) {
 	defer t.CloseIdleConnections()
-
-	var resp *http.Response
-	var reqErr error
 
 	count, doErr := t.Policy.Do(req.Context(), func(retrying bool) (interface{}, error) {
 		if retrying {
@@ -112,7 +108,7 @@ func (t transport) RoundTrip(req *http.Request) (*http.Response, error) {
 					return nil, errors.New("request.GetBody is nil")
 				}
 
-				// RoundTripper shouldn't modify request, except for reading and closing the body
+				// RoundTripper shouldn't modify request, except for reading and closing the body.
 				if req.Body, reqErr = req.GetBody(); reqErr != nil {
 					return nil, fmt.Errorf("rewinding body: %w", reqErr)
 				}
@@ -133,8 +129,8 @@ func (t transport) RoundTrip(req *http.Request) (*http.Response, error) {
 	return resp, nil
 }
 
-// CloseIdleConnections closes all idle connections if internal
-// transport supports it.
+// CloseIdleConnections closes all idle connections if internal transport
+// supports it.
 func (t transport) CloseIdleConnections() {
 	if tr, ok := t.RoundTripper.(interface{ CloseIdleConnections() }); ok {
 		tr.CloseIdleConnections()

@@ -9,9 +9,9 @@ import (
 )
 
 var (
-	// ErrMissingID is an error when ID is missing
+	// ErrMissingID is an error when ID is missing.
 	ErrMissingID = errors.New("missing ID")
-	// ErrNotFound is an error when record not found
+	// ErrNotFound is an error when record not found.
 	ErrNotFound = errors.New("record not found")
 )
 

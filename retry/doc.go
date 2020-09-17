@@ -1,11 +1,6 @@
 /*
 Package retry provides types for resilient retry policy, as well as
-HTTP RoundTripper for the common status/error responses
-
-Policy types can only be used at the application level and should be
-loosely coupled with other shared modules that depend on it. The
-extracted abstraction for the Policy.Do method and Callback is the only
-behavior needed for the most common use cases.
+RoundTripper for the HTTP transport.
 
 Basic Usage
 

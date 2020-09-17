@@ -6,12 +6,12 @@ import (
 	"time"
 )
 
-// Check is a func that defines a policy for processing retries based on
-// a given error and an optional result associated with it.
-// Returns true to continue retrying.
+// Check is a func that defines a policy for processing retries, it is based
+// on a given error and optional result associated with it. Returns true
+// when retrying continued.
 type Check func(err error, res interface{}) (bool, error)
 
-// Backoff is a func that defines the amount of time to wait beatwen retries.
+// Backoff is a func that defines the amount of time to wait between retries.
 type Backoff func(min, max time.Duration, attemptNum int) time.Duration
 
 // Callback accepts the boolean 'retrying' variable for the optional logical
@@ -46,7 +46,7 @@ func DefaultPolicy() Policy {
 
 // Do executes the provided callback with the given retry policy. It will
 // stop retrying when the context is canceled, validation completed or the
-// number of attempts exceeded. The first invoke will always be performed.
+// number of attempts exceeded. The first invoke will always be executed.
 func (p Policy) Do(ctx context.Context, cb Callback) (count int, err error) {
 	var (
 		res        interface{}
