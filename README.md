@@ -16,6 +16,7 @@ The motivation has educational and training purposes. An incubator of potentiall
 - [worker](/worker/doc.go)
 
 ## Versioning
+
 API is currently unstable and there are no compatibility guarantees [(semver)](https://semver.org/). See [Go modules versioning model](https://github.com/golang/go/wiki/Modules#faqs--semantic-import-versioning).
 
 ## Contributing

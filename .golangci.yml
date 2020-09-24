@@ -83,6 +83,8 @@ linters-settings:
       - experimental
       - opinionated
       - performance
+  nestif:
+    min-complexity: 7
 
 service:
   golangci-lint-version: 1.31.x # use the fixed version to not introduce new linters unexpectedly
