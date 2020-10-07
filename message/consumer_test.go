@@ -2,6 +2,7 @@ package message
 
 import (
 	"context"
+	"sync"
 	"testing"
 	"time"
 
@@ -129,24 +130,52 @@ func TestConsumer_Subscribe_subCancelled(t *testing.T) {
 	c := Consumer{}
 	sub, _ := c.Subscribe(context.TODO(), &fakeTopicReceiver{}, make(chan Message))
 
-	go sub.Close()
+	wg := sync.WaitGroup{}
 
-	err := <-sub.Errors()
+	wg.Add(1)
 
-	assert.Error(t, err)
-	assert.Equal(t, context.Canceled, err)
+	go func() {
+		wg.Done()
+
+		err := <-sub.Errors()
+
+		assert.Error(t, err)
+		assert.Equal(t, context.Canceled, err)
+	}()
+
+	wg.Add(1)
+
+	go func() {
+		wg.Done()
+		sub.Close()
+	}()
+
+	wg.Wait()
 }
 
 func TestConsumer_Close(t *testing.T) {
 	c := Consumer{}
 	sub, _ := c.Subscribe(context.TODO(), &fakeTopicReceiver{}, make(chan Message))
 
-	go c.Close()
+	wg := sync.WaitGroup{}
 
-	err := <-sub.Errors()
+	wg.Add(1)
 
-	assert.Error(t, err)
-	assert.Equal(t, context.Canceled, err)
+	go func() {
+		wg.Done()
+
+		err := <-sub.Errors()
+
+		assert.Error(t, err)
+		assert.Equal(t, context.Canceled, err)
+	}()
+
+	wg.Add(1)
+
+	go func() {
+		wg.Done()
+		c.Close()
+	}()
 }
 
 type fakeTopicReceiver struct {

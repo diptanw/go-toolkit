@@ -1,6 +1,6 @@
 module github.com/diptanw/go-toolkit
 
-go 1.13
+go 1.15
 
 require (
 	github.com/aws/aws-sdk-go-v2 v0.24.0
