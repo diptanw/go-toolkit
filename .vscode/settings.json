@@ -23,6 +23,9 @@
         "staticcheck": true,
         "analyses": {
             "ST1000": false,
+        },
+        "codelens": {
+            "gc_details": true  // Show a code lens toggling the display of gc's choices.
         }
-    },
+    }
 }

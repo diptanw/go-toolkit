@@ -83,8 +83,9 @@ func HTTPCheck(err error, res interface{}) (bool, error) {
 
 // transport is a wrapper for HTTP RoundTripper that is responsible for retrying.
 type transport struct {
-	RoundTripper http.RoundTripper
-	Policy       Policy
+	http.RoundTripper
+
+	Policy Policy
 }
 
 // RoundTrip wraps calling an HTTP Transport with retries.
