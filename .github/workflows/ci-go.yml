@@ -39,7 +39,8 @@ jobs:
     - name: Test
       run: go test -race -v ./...
 
-    - name: Lint
-      run: |
-        curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.31.0
-        $(go env GOPATH)/bin/golangci-lint run --new-from-rev=$(git merge-base origin/master HEAD)
+    - name: golangci-lint
+      uses: golangci/golangci-lint-action@v2
+      with:
+        version: v1.32
+        only-new-issues: true
