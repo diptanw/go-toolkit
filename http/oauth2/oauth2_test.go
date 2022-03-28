@@ -9,7 +9,7 @@ import (
 	"net/http/httptest"
 	"strings"
 
-	"github.com/diptanw/go-toolkit/auth"
+	httpkit "github.com/diptanw/go-toolkit/http"
 )
 
 func ExampleAuthenticator() {
@@ -36,7 +36,7 @@ func ExampleAuthenticator() {
 	}
 
 	authenticator := NewAuthenticator(context.Background(), config, "resources")
-	authClient := auth.WithAuthenticator(srv.Client(), authenticator)
+	authClient := httpkit.WithAuthenticator(srv.Client(), authenticator)
 
 	authClient.Get(srv.URL + "/resources")
 

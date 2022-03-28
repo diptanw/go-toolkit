@@ -1,10 +1,6 @@
 /*
-Package auth provides types for HTTP authentication. Supported
-oauth2 authenticator for authorizing HTTP requests towards the
-oidc providers.
-
-It will also provide various server authentication midlewares,
-as well as corresponding client authenticators.
+Package http provides types for HTTP authentication. Supported oauth2
+authenticator for authorizing HTTP requests towards the oidc providers.
 
 Basic Usage
 
@@ -33,4 +29,4 @@ Basic Usage
 
 	resp, err := authClient.Get("http://remote.resource/profiles")
 */
-package auth
+package http

@@ -1,7 +1,7 @@
 # Go Toolkit
 
 [![Build Status](https://github.com/diptanw/go-toolkit/workflows/build-n-test/badge.svg)](https://github.com/diptanw/go-toolkit/actions)
-[![Go Version](https://img.shields.io/static/v1?label=Go&message=1.14&color=9cf)](https://golang.org/doc/go1.15)
+[![Go Version](https://img.shields.io/static/v1?label=Go&message=1.18&color=9cf)](https://golang.org/doc/go1.18)
 [![Release](https://img.shields.io/badge/Release-LATEST-brightgreen.svg)](https://github.com/diptanw/go-toolkit/releases/latest)
 
 **Go Toolkit** is a **programming toolkit** for building services and serverless applications in Go.
@@ -15,7 +15,8 @@ The motivation has educational and training purposes. An incubator of potentiall
 - [message](/message/doc.go)
 - [retry](/retry/doc.go)
 - [storage](/storage/doc.go)
-- [worker](/worker/doc.go)
+- [async](/async/doc.go)
+- [server](/server/doc.go)
 
 ## Versioning
 
@@ -27,10 +28,9 @@ Please see [CONTRIBUTING.md](/CONTRIBUTING.md).
 
 ## Testing
 
-To run tests with code coverage, run the following command
+To run tests with code coverage, run the following command:
 
 ```sh
 go test -race -coverprofile=c.out ./... && go tool cover -html=c.out
 ```
 
-Fully covered code is required to make all parts clean and testable
